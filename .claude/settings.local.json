@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell([System.IO.Directory]::GetDirectories\\(\"c:\\\\Users\\\\Principal\\\\Documents\\\\GitHub\\\\remoteDesk\\\\mRemoteNG-1.76.20\\\\mRemoteV1\"\\))",
+      "PowerShell([System.IO.Directory]::GetDirectories\\(\"c:\\\\Users\\\\Principal\\\\Documents\\\\GitHub\\\\remoteDesk\\\\mRemoteNG-1.76.20\\\\mRemoteV1\\\\UI\"\\))",
+      "PowerShell([System.IO.Directory]::GetFiles\\(\"c:\\\\Users\\\\Principal\\\\Documents\\\\GitHub\\\\remoteDesk\\\\mRemoteNG-1.76.20\\\\mRemoteV1\\\\UI\\\\Panels\"\\))",
+      "Bash(xargs grep *)",
+      "Bash(\"C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\MSBuild\\\\Current\\\\Bin\\\\MSBuild.exe\" mRemoteV1.sln /p:Configuration=Debug /p:Platform=\"Any CPU\" /t:Build /v:minimal)"
+    ]
+  }
+}

@@ -27,6 +27,7 @@ namespace mRemoteNG.UI.Window
 	public partial class ConnectionWindow : BaseWindow
     {
         public TabControl TabController;
+        public bool IsGridCell { get; set; } = false;
         private readonly IConnectionInitiator _connectionInitiator = new ConnectionInitiator();
         private VisualStudioToolStripExtender vsToolStripExtender;
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
@@ -763,7 +764,7 @@ namespace mRemoteNG.UI.Window
                     Runtime.MessageCollector.AddExceptionMessage("Couldn't close tab", ex);
                 }
 
-                if (TabController.TabPages.Count == 0)
+                if (TabController.TabPages.Count == 0 && !IsGridCell)
                 {
                     Close();
                 }

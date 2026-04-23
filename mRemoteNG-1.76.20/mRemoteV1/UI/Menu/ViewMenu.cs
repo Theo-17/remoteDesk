@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.Connection;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Panels;
 using mRemoteNG.UI.Window;
@@ -420,6 +421,9 @@ namespace mRemoteNG.UI.Menu
         {
             var connections = Runtime.WindowList.OfType<ConnectionWindow>().ToList();
 
+            foreach (var win in connections)
+                win.IsGridCell = false;
+
             var allTabs = new List<Crownwood.Magic.Controls.TabPage>();
             foreach (var win in connections)
             {
@@ -452,6 +456,15 @@ namespace mRemoteNG.UI.Menu
                     }
 
                     if (win != null) {
+                        var ic = allTabs[tabIndex].Tag as InterfaceControl;
+                        if (ic?.Info != null)
+                        {
+                            var cellName = ic.Info.Name;
+                            win.Text = cellName;
+                            win.TabText = cellName;
+                            ic.Info.Panel = cellName;
+                        }
+                        win.IsGridCell = true;
                         win.TabController.TabPages.Add(allTabs[tabIndex]);
                         grid[x, y] = win;
                     }
