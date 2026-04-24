@@ -199,6 +199,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
 		private void VNCEvent_Disconnected(object sender, EventArgs e)
 		{
             if (keepAliveTimer != null) { keepAliveTimer.Stop(); keepAliveTimer.Dispose(); keepAliveTimer = null; }
+            Close();
+		}
+
 		private void VNCEvent_ClipboardChanged()
 		{
 			_VNC.FillServerClipboard();

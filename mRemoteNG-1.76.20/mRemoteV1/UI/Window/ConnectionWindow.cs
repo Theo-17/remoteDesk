@@ -28,6 +28,7 @@ namespace mRemoteNG.UI.Window
     {
         public TabControl TabController;
         public bool IsGridCell { get; set; } = false;
+        private Label _disconnectedLabel;
         private readonly IConnectionInitiator _connectionInitiator = new ConnectionInitiator();
         private VisualStudioToolStripExtender vsToolStripExtender;
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
@@ -100,6 +101,8 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
+                HideDisconnectedPlaceholder();
+
                 var nTab = new TabPage
                 {
                     Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top
@@ -764,11 +767,38 @@ namespace mRemoteNG.UI.Window
                     Runtime.MessageCollector.AddExceptionMessage("Couldn't close tab", ex);
                 }
 
-                if (TabController.TabPages.Count == 0 && !IsGridCell)
+                if (TabController.TabPages.Count == 0)
                 {
-                    Close();
+                    if (IsGridCell)
+                        ShowDisconnectedPlaceholder();
+                    else
+                        Close();
                 }
             }
+        }
+
+        private void ShowDisconnectedPlaceholder()
+        {
+            if (_disconnectedLabel == null)
+            {
+                _disconnectedLabel = new Label
+                {
+                    Text = "Desconectado\r\nDoble clic en la conexión para reconectar",
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 12f),
+                    ForeColor = Color.Gray,
+                    BackColor = Color.Black
+                };
+            }
+            Controls.Add(_disconnectedLabel);
+            _disconnectedLabel.BringToFront();
+        }
+
+        private void HideDisconnectedPlaceholder()
+        {
+            if (_disconnectedLabel != null && Controls.Contains(_disconnectedLabel))
+                Controls.Remove(_disconnectedLabel);
         }
 
         private bool _ignoreChangeSelectedTabClick;
